@@ -4,8 +4,8 @@ Nautilus extension to paste from clipboard to a file and to copy an image from a
 
 Once installed:
 
-* Select an image file, then select Copy as Image from the context menu.  All image extensions supported by GdkPixbuf are supported.
-* With an image on the cliboard, select Paste Image.  The file will appear as `Cliboard <timestamp>.png`. The path and image format are not customizable (for now).
+* Select an image file, open the context menu, and select Copy as Image.  All image extensions supported by GdkPixbuf are supported. [screenshot](data/copy.png)
+* With an image on the cliboard, open the background context menu and select Paste Image.  The file will appear as `Cliboard <timestamp>.png`. The path and image format are not customizable (for now). [screenshot](data/paste.png)
 
 ## Prerequisites
 
