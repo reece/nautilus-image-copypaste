@@ -1,0 +1,6 @@
+*.log
+*.py[cod]
+__pycache__
+build/
+dist/
+venv/
