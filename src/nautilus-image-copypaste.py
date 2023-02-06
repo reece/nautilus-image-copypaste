@@ -50,10 +50,9 @@ _logger = logging.getLogger(__name__)
 
 
 def get_clipboard():
-    # BROKEN. How do I get the clipboard for the current app?  It requires having a widget that is
-    # attached to the top-level window.  See
-    # https://docs.gtk.org/gtk3/method.Widget.get_clipboard.html#description
-    return Gdk.Display().get_clipboard()
+    clipboard = Gdk.Display().get_default().get_clipboard()
+    _logger.warning("Clipboard: " + clipboard.get_formats().to_string())
+    return clipboard
 
 def is_image(clipboard):
     return "GdkTexture" in clipboard.get_formats().to_string()
@@ -104,7 +103,13 @@ class NautilusImageCopyPaste(GObject.GObject, Nautilus.MenuProvider):
     def copy_file_image_to_clipboard(self, menuitem: Nautilus.MenuItem, file):
         texture = Gdk.Texture.new_from_filename(file)
         clipboard = get_clipboard()
-        clipboard.set(texture)
+        if "NAUTILUS_PYTHON_DEBUG" in os.environ:
+            import IPython; IPython.embed()
+        # Broken here: I can't figure out how to set the texture from Python
+        # See:
+        # - https://docs.gtk.org/gdk4/method.Clipboard.set.html
+        # - https://docs.gtk.org/gdk4/method.Clipboard.set_texture.html
+        # clipboard.set_texture(texture)
         _logger.warning(f"Set clipboard from {file}; {texture.get_width()}x{texture.get_height()}")
 
     def copy_clipboard_to_file_image(self, menuitem: Nautilus.MenuItem, dir):
